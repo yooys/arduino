@@ -1,18 +1,29 @@
 #include <Servo.h>
 
 Servo myservo;
+int LED = 11;
 
 void setup() {
   Serial.begin(9600);
   myservo.attach(13);
+  pinMode(LED, OUTPUT);
 }
 
 void loop() {
   int val = analogRead(A0); 
-  val = map(val,0,1023,0,179);
+  val = map(val, 0, 1023, 0, 179);
   myservo.write(val);
+  Serial.println(val);
+
+  if (val != 0 && val % 30 == 0) {  
+    digitalWrite(LED, HIGH);
+  } else {
+    digitalWrite(LED, LOW);
+  }
+  
   delay(50);
 }
+
 
 /*
 #include <Servo.h>
