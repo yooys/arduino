@@ -1,5 +1,22 @@
 #include <Servo.h>
 
+Servo myservo;
+
+void setup() {
+  Serial.begin(9600);
+  myservo.attach(13);
+}
+
+void loop() {
+  int val = analogRead(A0); 
+  val = map(val,0,1023,0,179);
+  myservo.write(val);
+  delay(50);
+}
+
+/*
+#include <Servo.h>
+
 Servo sv;
 
 void setup() {
@@ -12,3 +29,4 @@ void loop() {
   Serial.println(value);
   sv.write(value);
 }
+*/
