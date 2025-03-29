@@ -1,5 +1,6 @@
 int digit_select_pin[] = {10, 11, 12, 13}; 
 int segment_pin[] = {2, 3, 4, 5, 6, 7, 8, 9};
+//자릿수 표현 사이의 지연 시간, ms단위
 int time_delay = 5;
 
 byte digits_data[10] = {0xFC, 0x60, 0xDA, 0xF2, 0x66, 0xB6, 0xBE, 0xE0, 0xFE, 0xE6}; 
