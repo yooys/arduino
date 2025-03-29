@@ -1,0 +1,39 @@
+int digit_select_pin[] = {10, 11, 12, 13}; 
+int segment_pin[] = {2, 3, 4, 5, 6, 7, 8, 9};
+int time_delay = 5;
+
+byte digits_data[10] = {0xFC, 0x60, 0xDA, 0xF2, 0x66, 0xB6, 0xBE, 0xE0, 0xFE, 0xE6}; 
+
+void show_digit(int pos, int number) {
+  for (int i = 0; i < 4; i++) {
+    digitalWrite(digit_select_pin[i], HIGH);
+  }
+  digitalWrite(digit_select_pin[pos - 1], LOW);
+
+  for (int i = 0; i < 8; i++) {
+    byte segment_data = (digits_data[number] & (0x01 << i)) >> i;
+    digitalWrite(segment_pin[7 - i], segment_data);
+  }
+}
+
+void setup() {
+  for (int i = 0; i < 4; i++) {
+    pinMode(digit_select_pin[i], OUTPUT);
+    digitalWrite(digit_select_pin[i], HIGH);
+  }
+  for (int i = 0; i < 8; i++) {
+    pinMode(segment_pin[i], OUTPUT);
+    digitalWrite(segment_pin[i], LOW);
+  }
+}
+
+void loop() {
+  show_digit(1, 1);
+  delay(time_delay);
+  show_digit(2, 2);
+  delay(time_delay);
+  show_digit(3, 3);
+  delay(time_delay);
+  show_digit(4, 4);
+  delay(time_delay);
+}
