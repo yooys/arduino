@@ -1,0 +1,118 @@
+#include <Servo.h> 
+Servo servo_1; 
+
+int R = 11;
+int G = 9;
+int B = 10;
+
+void setup() {
+  servo_1.attach(3);
+  
+  pinMode(R, OUTPUT);
+  pinMode(G, OUTPUT);
+  pinMode(B, OUTPUT);
+
+  Serial.begin(9600); 
+}
+
+void loop() {
+  for(int angle = 0; angle <= 180; angle++) {
+    servo_1.write(angle);
+    delay(10); 
+    if (angle >= 0 && angle < 60) {
+      analogWrite(R, 255);
+      analogWrite(G, 0);
+      analogWrite(B, 0);
+    }
+    if (angle >= 60 && angle <= 120) {
+      analogWrite(R, 0);
+      analogWrite(G, 255);
+      analogWrite(B, 0);
+    }
+    else {
+      analogWrite(R, 0);
+      analogWrite(G, 0);
+      analogWrite(B, 255);
+    }
+  }
+
+  for(int angle = 180; angle >= 0; angle--) {
+    servo_1.write(angle); 
+    delay(10); 
+    
+    if (angle >= 0 && angle < 60) {
+      analogWrite(R, 255);
+      analogWrite(G, 0);
+      analogWrite(B, 0);
+    }
+    if (angle >= 60 && angle <= 120) {
+      analogWrite(R, 0);
+      analogWrite(G, 255);
+      analogWrite(B, 0);
+    }
+    else {
+      analogWrite(R, 0);
+      analogWrite(G, 0);
+      analogWrite(B, 255);
+    }
+  }
+}
+
+
+/*
+int R = 11;
+int G = 9;
+int B = 10;
+
+void setup() {
+  pinMode(R, OUTPUT);
+  pinMode(G, OUTPUT);
+  pinMode(B, OUTPUT);
+
+  Serial.begin(9600);
+}
+
+void loop() {
+  analogWrite(R, 255);
+  analogWrite(G, 0);
+  analogWrite(B, 0);
+  delay(1000);
+
+  // 주황
+  analogWrite(R, 255);
+  analogWrite(G, 127);
+  analogWrite(B, 0);
+  delay(1000);
+
+  // 노랑
+  analogWrite(R, 255);
+  analogWrite(G, 255);
+  analogWrite(B, 0);
+  delay(1000);
+
+  // 초록
+  analogWrite(R, 0);
+  analogWrite(G, 255);
+  analogWrite(B, 0);
+  delay(1000);
+
+  // 파랑
+  analogWrite(R, 0);
+  analogWrite(G, 0);
+  analogWrite(B, 255);
+  delay(1000);
+
+  // 남색
+  analogWrite(R, 75);
+  analogWrite(G, 0);
+  analogWrite(B, 130);
+  delay(1000);
+
+  // 보라
+  analogWrite(R, 148);
+  analogWrite(G, 0);
+  analogWrite(B, 211);
+  delay(1000);
+
+}
+*/
