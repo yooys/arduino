@@ -1,0 +1,73 @@
+#define TRIG 9
+#define ECHO 8 
+
+#define C 262 
+#define D 294
+#define E 330
+#define F 349
+#define A 440
+#define B 494
+
+int blue = 12;
+int red = 11;
+int piezoPin = 5;        
+int tempo = 200;
+
+int notes[10] = {C, D, E, F, A, B}; 
+
+void setup() {
+  Serial.begin(9600); 
+  pinMode(TRIG, OUTPUT);
+  pinMode(ECHO, INPUT);
+  pinMode(piezoPin, OUTPUT);
+  pinMode(blue, OUTPUT);
+  pinMode(red, OUTPUT);
+}
+
+void loop() {
+  long duration, distance;
+  
+  digitalWrite(TRIG, LOW);
+  delayMicroseconds(2);
+  digitalWrite(TRIG, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(TRIG, LOW);
+
+  duration = pulseIn(ECHO, HIGH); 
+  distance = duration * 0.034 / 2; 
+
+  Serial.println(duration);
+  Serial.print("\nDistance : ");
+  Serial.print(distance);
+  Serial.println(" Cm");
+
+  if (distance <= 20) {
+    digitalWrite(blue, LOW);
+    digitalWrite(red, HIGH);
+  } else {
+    digitalWrite(blue, HIGH);
+    digitalWrite(red, LOW);
+  }
+
+  if (distance <= 20 && distance > 10) {
+    tone(piezoPin, notes[0], tempo);
+    delay(tempo);
+    noTone(piezoPin);
+    delay(tempo);
+  }
+  else if (distance <= 10 && distance > 5) {
+    tone(piezoPin, notes[0], tempo - 100);
+    delay(tempo - 100);
+    noTone(piezoPin);
+    delay(tempo - 100);
+  }
+  else if (distance <= 5) {
+    tone(piezoPin, notes[0], tempo - 150);
+    delay(tempo - 150);
+    noTone(piezoPin);
+    delay(tempo - 150);
+  }
+  else {
+    noTone(piezoPin);
+  }
+}
