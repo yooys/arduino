@@ -1,0 +1,36 @@
+#include <LiquidCrystal.h>
+
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
+
+int led1 = 10;
+int led2 = 9;
+
+void setup() {
+  lcd.begin(16, 2);
+  lcd.print("Hello World!");
+  
+  pinMode(7, INPUT);
+  pinMode(8, INPUT);
+  pinMode(9,OUTPUT);
+  pinMode(10,OUTPUT);  
+}
+
+void loop() {
+  int switch1 = digitalRead(7);
+  int switch2 = digitalRead(8);
+
+  if (switch1 == HIGH) {
+    lcd.clear();
+    lcd.print("Red");
+    digitalWrite(led1, HIGH);
+    digitalWrite(led2, LOW);
+    delay(500);
+  } 
+  else if (switch2 == HIGH) {
+    lcd.clear();
+    lcd.print("Blue");
+    digitalWrite(led2,HIGH);
+    digitalWrite(led1, LOW);
+    delay(500);
+  }
+}
